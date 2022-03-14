@@ -2,7 +2,9 @@
 def create_node_tree(node, parent=None):
     s = node[0]
     print s, parent
-    if s.split('_')[-1] in ['bindJNT', 'JNT']:
+    if cmds.objExists(s):
+        pass
+    elif s.split('_')[-1] in ['bindJNT', 'JNT']:
         if parent is not None:
             cmds.select(parent)
             cmds.joint(n=s)
@@ -21,6 +23,17 @@ def create_node_tree(node, parent=None):
         create_node_tree(c, s)
         pass
     return s
+
+def adjust_tr(tar, obj):
+    if tar == "zero":
+        pos = tuple([0, 0, 0])
+    else:
+        pos = cmds.xform(tar, q=True, t=True, ws=True)
+    cmds.xform(obj, t=pos, ws=True)
+
+def adjust_ro(tar, obj):
+    ro = cmds.xform(tar, q=True, ro=True, ws=True)
+    cmds.xform(obj, ro=ro, ws=True)
 
 x = [
     ['reverseFoot_Setup_GRP', [
@@ -116,5 +129,41 @@ x = [
     ]],
 ]
 
+cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
+
 create_node_tree(x[0])
+    
+adjust_tr("ankle_bindJNT", "ankle_ctrloffC")
+adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
+
+ankle_grp = ["reverseFoot_ctrloffB", "ancleConstrain_LOC"]
+for ctrl in ankle_grp:
+    adjust_ro("ankle_bindJNT", ctrl)
+    adjust_tr("ankle_bindJNT", ctrl)
+        
+adjust_tr("ball_bindJNT", "toe_ctrloffC")        
+adjust_ro("ball_bindJNT", "toe_ctrloffC")        
+        
+adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
+adjust_tr("ankle_bindJNT", "reverseFoot_ctrloffB")
+# cmds.xform("reverseFoot_ctrloffB_L", r=True, ro=[0, 0, 90], os=True)           
+adjust_ro("heel_sub_bindJNT", "reverseHeel_ctrloffB")
+adjust_tr("heel_sub_bindJNT", "reverseHeel_ctrloffB")
+# cmds.xform("reverseHeel_ctrloffB", r=True, ro=[0, 0 , 90], os=True)           
+adjust_tr("toe_bindJNT", "reverseToe_ctrloffB")
+adjust_tr("ball_bindJNT", "reverseBall_ctrloffB")
+
+cmds.parentConstraint('reverseBall_ctrl', 'ancleConstrain_LOC', mo=True)
+cmds.pointConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
+cmds.orientConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
+cmds.pointConstraint('ankle_ctrl', 'ankle_bindJNT', mo=True)
+cmds.orientConstraint('ankle_ctrl', 'ankle_bindJNT', mo=True)
+cmds.orientConstraint('reverseToe_JNT', 'ball_ik_JNT', mo=True)
+cmds.orientConstraint('reverseToe_ctrl', 'ball_ik_JNT', mo=True)
+cmds.orientConstraint('reverseBall_ctrl', 'reverseBall_JNT', mo=True)
+cmds.orientConstraint('reverseBall_JNT', 'ankle_root_ik_JNT', mo=True)
+cmds.orientConstraint('reverseToe_ctrl', 'reverseToe_JNT', mo=True)
+cmds.orientConstraint('reverseHeel_ctrl', 'reverseHeel_JNT', mo=True)
+
+
                         

@@ -5,11 +5,15 @@ import maya.cmds as cmds
 def create_node_tree(node, parent=None):
     s = node[0]
     print s, parent
-    if s.split('_')[-1]=='bindJNT':
+    if cmds.objExists(s):
+        pass
+    elif s.split('_')[-1] in ['bindJNT', 'JNT']:
         if parent is not None:
             cmds.select(parent)
             cmds.joint(n=s)
-    if s.split('_')[-1]=='loc':
+    elif s.split('_')[-1] in ['pointConstraint1', 'orientConstraint1', 'parentConstraint1']:
+        pass
+    elif s.split('_')[-1]=='loc':
         cmds.spaceLocator(n=s)
         cmds.parent(s, parent)
     else:
@@ -142,8 +146,6 @@ def bind_joint():
         newRot = cmds.xform( jnt, q = 1, objectSpace = 1, rotation = 1 )
         cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
         cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
-
-
 
 
 create_locator()
