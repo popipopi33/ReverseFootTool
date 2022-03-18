@@ -1,5 +1,4 @@
 #coding:utf-8
-
 import maya.cmds as cmds
 
 def create_node_tree(node, parent=None):

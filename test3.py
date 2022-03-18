@@ -8,6 +8,10 @@ def create_node_tree(node, parent=None):
         if parent is not None:
             cmds.select(parent)
             cmds.joint(n=s)
+    elif s.split('_')[-1] == 'ctrl':
+        cmds.curve(n=s, p=[0,0,0])
+        cmds.rename('curveShape1', '{}Shape'.format(s))
+        cmds.parent(s, parent)
     elif s.split('_')[-1] in ['pointConstraint1', 'orientConstraint1', 'parentConstraint1']:
         pass
     elif s.split('_')[-1]=='loc':
@@ -133,10 +137,16 @@ cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
 
 create_node_tree(x[0])
     
+# cmds.setAttr('ankle_ctrloffB.rotateX', 90)
+cmds.setAttr('ancleConstrain_LOC.rotateZ', -90)
+cmds.setAttr('ankle_bindJNT_OFF.rotateZ', -90)
+cmds.setAttr('ankle_root_ik_JNT_to_ankle_ik.rotateZ', -90)
+cmds.setAttr('reverseHeel_JNT_OFF.rotateZ', -90)
+
 adjust_tr("ankle_bindJNT", "ankle_ctrloffC")
 adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
 
-ankle_grp = ["reverseFoot_ctrloffB", "ancleConstrain_LOC"]
+ankle_grp = ["ancleConstrain_LOC"]
 for ctrl in ankle_grp:
     adjust_ro("ankle_bindJNT", ctrl)
     adjust_tr("ankle_bindJNT", ctrl)
@@ -144,14 +154,16 @@ for ctrl in ankle_grp:
 adjust_tr("ball_bindJNT", "toe_ctrloffC")        
 adjust_ro("ball_bindJNT", "toe_ctrloffC")        
         
-adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
+# adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
 adjust_tr("ankle_bindJNT", "reverseFoot_ctrloffB")
 # cmds.xform("reverseFoot_ctrloffB_L", r=True, ro=[0, 0, 90], os=True)           
-adjust_ro("heel_sub_bindJNT", "reverseHeel_ctrloffB")
+# adjust_ro("heel_sub_bindJNT", "reverseHeel_ctrloffB")
 adjust_tr("heel_sub_bindJNT", "reverseHeel_ctrloffB")
 # cmds.xform("reverseHeel_ctrloffB", r=True, ro=[0, 0 , 90], os=True)           
 adjust_tr("toe_bindJNT", "reverseToe_ctrloffB")
 adjust_tr("ball_bindJNT", "reverseBall_ctrloffB")
+
+
 
 cmds.parentConstraint('reverseBall_ctrl', 'ancleConstrain_LOC', mo=True)
 cmds.pointConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
