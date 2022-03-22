@@ -188,6 +188,7 @@ def reverse_foot_setup_main():
     adjust_tr('ankleTop_bindJNT', 'ankleTop_ik_JNT')
 
     cmds.parentConstraint('reverseBall_ctrl', 'ancleConstrain_LOC', mo=True)
+    
     cmds.pointConstraint('ball_bindJNT', 'toe_ctrl', mo=True)
     cmds.orientConstraint('ball_bindJNT', 'toe_ctrl', mo=True)
     cmds.pointConstraint('ankle_bindJNT', 'ankle_ctrl', mo=True)
