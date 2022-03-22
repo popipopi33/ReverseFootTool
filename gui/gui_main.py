@@ -48,6 +48,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.create_locator_button.clicked.connect(self.create_locator_button_clicked)
         self.ui.create_joint_button.clicked.connect(self.create_joint_button_clicked)
         self.ui.setup_button.clicked.connect(self.setup_button_clicked)
+        self.ui.ik_const_button.connect(self.ik_const_button_clicked)
 
     def create_locator_button_clicked(self):
         import setup.create_tg_locator as create_tg_locator
@@ -70,6 +71,8 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         ctrlshape_cc.ctrlshape_cc_main()
         cmds.inViewMessage(assistMessage="Setup finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
+    def ik_const_button_clicked(self):
+        cmds.pointConstraint(self.ui.tg_ik_text.text(), 'legIk')
 
 def runs(*argv):
     app = QApplication.instance()
