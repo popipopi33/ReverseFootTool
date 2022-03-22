@@ -163,6 +163,17 @@ adjust_tr("heel_sub_bindJNT", "reverseHeel_ctrloffB")
 adjust_tr("toe_bindJNT", "reverseToe_ctrloffB")
 adjust_tr("ball_bindJNT", "reverseBall_ctrloffB")
 
+adjust_tr('ankleTop_ik_JNT', 'ankleTop_bindJNT_L_loc')
+adjust_tr('toe_ik_JNT', 'toe_bindJNT_L_loc')
+adjust_tr('ball_ik_JNT', 'ball_bindJNT_L_loc')
+adjust_tr('heel_sub_ik_JNT', 'heel_sub_bindJNT_L_loc')
+adjust_tr('ankle_root_ik_JNT', 'ankle_bindJNT_L_loc')
+
+adjust_tr('reverseHeel_JNT', 'heel_sub_bindJNT_L_loc')
+adjust_tr('reverseBall_JNT','ankleTop_bindJNT_loc')
+adjust_tr('reverseToe_JNT', 'toe_bindJNT_L_loc')
+adjust_tr('reverseHeel_JNT', 'heel_sub_bindJNT_L_loc')
+# adjust_tr()
 
 
 cmds.parentConstraint('reverseBall_ctrl', 'ancleConstrain_LOC', mo=True)
