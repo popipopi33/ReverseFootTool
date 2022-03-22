@@ -58,7 +58,7 @@
       <item>
        <widget class="QLineEdit" name="tg_ik_text">
         <property name="text">
-         <string>ancleConstrain_LOC</string>
+         <string>legIk</string>
         </property>
        </widget>
       </item>

@@ -48,7 +48,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.create_locator_button.clicked.connect(self.create_locator_button_clicked)
         self.ui.create_joint_button.clicked.connect(self.create_joint_button_clicked)
         self.ui.setup_button.clicked.connect(self.setup_button_clicked)
-        self.ui.ik_const_button.connect(self.ik_const_button_clicked)
+        self.ui.ik_const_button.clicked.connect(self.ik_const_button_clicked)
 
     def create_locator_button_clicked(self):
         import setup.create_tg_locator as create_tg_locator
@@ -72,7 +72,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         cmds.inViewMessage(assistMessage="Setup finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
     def ik_const_button_clicked(self):
-        cmds.pointConstraint(self.ui.tg_ik_text.text(), 'legIk')
+        cmds.pointConstraint('ancleConstrain_LOC', self.ui.tg_ik_text.text())
 
 def runs(*argv):
     app = QApplication.instance()
@@ -95,4 +95,13 @@ if __name__ == '__main__':
     # runs(sys.argv[1:])
     sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool\gui')
     import gui_main
+    reload(gui_main)
     gui_main.runs('')
+
+'''
+cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC')
+cmds.parentConstraint('ankle_ik_JNT', 'ankle_root_ik_JNT_to_ankle_ik')
+
+
+Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301
+'''
