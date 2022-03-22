@@ -139,7 +139,7 @@ def reverse_foot_setup_main():
 
     cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
 
-    create_node_tree(node_tree()[0])
+    create_node_tree(node_tree[0])
         
     # cmds.setAttr('ankle_ctrloffB.rotateX', 90)
     cmds.setAttr('ancleConstrain_LOC.rotateZ', -90)
@@ -179,8 +179,8 @@ def reverse_foot_setup_main():
     cmds.orientConstraint('reverseToe_ctrl', 'reverseToe_JNT', mo=True)
     cmds.orientConstraint('reverseHeel_ctrl', 'reverseHeel_JNT', mo=True)
 
-sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
-import setup.create_tg_locator as reverse_foot_setup
-reload(reverse_foot_setup)
-reverse_foot_setup.reverse_foot_setup_main()
+# sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
+# import setup.create_tg_locator as reverse_foot_setup
+# reload(reverse_foot_setup)
+# reverse_foot_setup.reverse_foot_setup_main()
                         

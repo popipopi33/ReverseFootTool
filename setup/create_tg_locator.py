@@ -103,8 +103,8 @@ def create_tg_locator_main():
 
 # create_locator()
 
-sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
-import setup.create_tg_locator as create_tg_locator
-reload(create_tg_locator)
-create_tg_locator.main()
+# sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
+# import setup.create_tg_locator as create_tg_locator
+# reload(create_tg_locator)
+# create_tg_locator.main()
 

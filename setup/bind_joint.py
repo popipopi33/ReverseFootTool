@@ -40,7 +40,7 @@ def bind_joint_main():
         cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
         cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
 
-sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
-import setup.bind_joint as bind_joint
-reload(bind_joint)
-bind_joint.bind_joint_main()
+# sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
+# import setup.bind_joint as bind_joint
+# reload(bind_joint)
+# bind_joint.bind_joint_main()
