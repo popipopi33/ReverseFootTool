@@ -74,6 +74,12 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
     def ik_const_button_clicked(self):
         cmds.pointConstraint('ancleConstrain_LOC', self.ui.tg_ik_text.text())
 
+        cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC', mo=True)
+        cmds.parentConstraint('ankle_ik_JNT', 'ankle_root_ik_JNT_to_ankle_ik', mo=True)
+
+        cmds.pointConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
+        cmds.orientConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
+        
 def runs(*argv):
     app = QApplication.instance()
     if app is None:
@@ -93,8 +99,8 @@ def runs(*argv):
 
 if __name__ == '__main__':
     # runs(sys.argv[1:])
-    sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool\gui')
-    import gui_main
+    sys.path.append(r'Y:\tool\ND_Tools\DCC')
+    import ReverseFootTool.gui.gui_main as gui_main
     reload(gui_main)
     gui_main.runs('')
 

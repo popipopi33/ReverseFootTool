@@ -145,6 +145,8 @@ cmds.setAttr('reverseHeel_JNT_OFF.rotateZ', -90)
 
 adjust_tr("ankle_bindJNT", "ankle_ctrloffC")
 adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
+cmds.xform("ankle_ctrloffC", r=True, ro=[0, 0, 90], os=True)
+
 
 ankle_grp = ["ancleConstrain_LOC"]
 for ctrl in ankle_grp:

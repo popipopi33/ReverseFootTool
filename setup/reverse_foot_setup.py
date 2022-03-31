@@ -3,7 +3,6 @@ import maya.cmds as cmds
 
 def create_node_tree(node, parent=None):
     s = node[0]
-    print s, parent
     if cmds.objExists(s):
         pass
     elif s.split('_')[-1] in ['bindJNT', 'JNT']:
@@ -142,21 +141,25 @@ def reverse_foot_setup_main():
     create_node_tree(node_tree[0])
         
     # cmds.setAttr('ankle_ctrloffB.rotateX', 90)
+    adjust_tr("ankle_bindJNT", "ancleConstrain_LOC_OFF")
     cmds.setAttr('ancleConstrain_LOC.rotateZ', -90)
     cmds.setAttr('ankle_bindJNT_OFF.rotateZ', -90)
     cmds.setAttr('ankle_root_ik_JNT_to_ankle_ik.rotateZ', -90)
-    cmds.setAttr('reverseHeel_JNT_OFF.rotateZ', -90)
+    cmds.setAttr('reverseHeel_JNT_OFF.rotateY', -90)
 
     adjust_tr("ankle_bindJNT", "ankle_ctrloffC")
     adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
+    cmds.xform("ankle_ctrloffC", r=True, ro=[-90, 0, 0], os=True)
+    cmds.connectAttr('ankle_root_ik_JNT.rotateX', 'ankle_ctrloffB.rotateX')
+    cmds.connectAttr('ankle_root_ik_JNT.rotateY', 'ankle_ctrloffB.rotateY')
+    cmds.connectAttr('ankle_root_ik_JNT.rotateZ', 'ankle_ctrloffB.rotateZ')
 
-    ankle_grp = ["ancleConstrain_LOC"]
-    for ctrl in ankle_grp:
-        adjust_ro("ankle_bindJNT", ctrl)
-        adjust_tr("ankle_bindJNT", ctrl)
-            
-    adjust_tr("ball_bindJNT", "toe_ctrloffC")        
-    adjust_ro("ball_bindJNT", "toe_ctrloffC")        
+    # ankle_grp = ["ancleConstrain_LOC"]
+    # for ctrl in ankle_grp:
+    #     adjust_ro("ankle_bindJNT", ctrl)
+    #     adjust_tr("ankle_bindJNT", ctrl)
+
+     
             
     # adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
     adjust_tr("ankle_bindJNT", "reverseFoot_ctrloffB")
@@ -165,30 +168,35 @@ def reverse_foot_setup_main():
     adjust_tr("heel_sub_bindJNT", "reverseHeel_ctrloffB")
     adjust_tr('heel_sub_bindJNT', 'reverseHeel_JNT_OFF')
     # cmds.xform("reverseHeel_ctrloffB", r=True, ro=[0, 0 , 90], os=True)           
-    adjust_tr("toe_bindJNT", "toe_ctrl")
+    adjust_tr("toe_bindJNT","reverseToe_ctrloffB")
     adjust_tr("ball_bindJNT", "reverseBall_ctrloffB")
+
+    adjust_ro('ankle_bindJNT', 'ankle_root_ik_JNT')
+    adjust_ro('ball_bindJNT', 'ball_ik_JNT')
 
     adjust_ro('ankleTop_bindJNT', 'ankleTop_ik_JNT')
     adjust_ro('toe_bindJNT', 'toe_ik_JNT')
-    adjust_ro('ball_bindJNT', 'ball_ik_JNT')
     adjust_ro('heel_sub_bindJNT', 'heel_sub_ik_JNT')
-    adjust_ro('ankle_bindJNT', 'ankle_root_ik_JNT')
     adjust_ro('toe_bindJNT', 'reverseToe_JNT')
     adjust_ro('ball_bindJNT', 'reverseBall_JNT')
     adjust_ro('ankle_bindJNT', 'reverseAnkle_JNT')
 
+    adjust_tr("ankle_bindJNT", "ankle_root_ik_JNT_to_ankle_ik")
     adjust_tr('toe_bindJNT', 'reverseToe_JNT')
     adjust_tr('ball_bindJNT', 'reverseBall_JNT')
     adjust_tr('ankle_bindJNT', 'reverseAnkle_JNT')
-    adjust_tr('ankle_bindJNT', 'ankle_root_ik_JNT')
     adjust_tr('heel_sub_bindJNT', 'heel_sub_ik_JNT')
     
     adjust_tr('ball_bindJNT', 'ball_ik_JNT')
     adjust_tr('toe_bindJNT', 'toe_ik_JNT')
     adjust_tr('ankleTop_bindJNT', 'ankleTop_ik_JNT')
 
+    adjust_ro("ball_bindJNT", "toe_ctrloffC")        
+    adjust_tr("ball_bindJNT", "toe_ctrloffC")   
+
     cmds.parentConstraint('reverseBall_ctrl', 'ancleConstrain_LOC', mo=True)
 
+    cmds.parentConstraint('ankle_ik_JNT', 'ankle_root_ik_JNT_to_ankle_ik', mo=True)
     cmds.pointConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
     cmds.orientConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
     cmds.pointConstraint('ankle_ctrl', 'ankle_bindJNT', mo=True)
