@@ -80,6 +80,8 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         cmds.pointConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
         cmds.orientConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
         
+        cmds.parentConstraint('thighLOC', 'secLegPV_ctrloffB', mo=True)
+
 def runs(*argv):
     app = QApplication.instance()
     if app is None:
@@ -105,8 +107,8 @@ if __name__ == '__main__':
     gui_main.runs('')
 
 '''
-cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC')
-cmds.parentConstraint('ankle_ik_JNT', 'ankle_root_ik_JNT_to_ankle_ik')
+cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC', mo=True)
+cmds.parentConstraint('ankle_root_ik_JNT_to_ankle_ik', 'ankle_ik_JNT', mo=True)
 
 
 Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301
