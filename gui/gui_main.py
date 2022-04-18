@@ -76,11 +76,10 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
 
         cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC', mo=True)
         cmds.parentConstraint('ankle_ik_JNT', 'ankle_root_ik_JNT_to_ankle_ik', mo=True)
-
-        cmds.pointConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
-        cmds.orientConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
+        # cmds.pointConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
+        # cmds.orientConstraint('kneeA_ctrl', 'kneeA_bindJNT', mo=True)
         
-        cmds.parentConstraint('thighLOC', 'secLegPV_ctrloffB', mo=True)
+        # cmds.parentConstraint('thighLOC', 'secLegPV_ctrloffB', mo=True)
 
 def runs(*argv):
     app = QApplication.instance()
@@ -100,6 +99,9 @@ def runs(*argv):
     return True
 
 if __name__ == '__main__':
+    leg_ma = r'Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301\Leg_Rig_v001.mb'
+    print(os.path.exists(leg_ma))
+    cmds.file(leg_ma, o=True, force=True)
     # runs(sys.argv[1:])
     sys.path.append(r'Y:\tool\ND_Tools\DCC')
     import ReverseFootTool.gui.gui_main as gui_main
