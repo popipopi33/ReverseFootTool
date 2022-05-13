@@ -52,8 +52,9 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.ik_const_button.clicked.connect(self.ik_const_button_clicked)
 
     def create_locator_button_clicked(self):
-        import create_tg_locator
+        import setup.create_tg_locator as create_tg_locator
         reload(create_tg_locator)
+        print(create_tg_locator.__file__)
         create_tg_locator.create_tg_locator_main()
         cmds.inViewMessage(assistMessage="Create Locators finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
@@ -99,15 +100,15 @@ def runs(*argv):
 
     return True
 
-if __name__ == '__main__':
-    leg_ma = r'Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301\Leg_Rig_v001.mb'
-    print(os.path.exists(leg_ma))
-    cmds.file(leg_ma, o=True, force=True)
-    # runs(sys.argv[1:])
-    sys.path.append(r'Y:\tool\ND_Tools\DCC')
-    import ReverseFootTool.gui.gui_main as gui_main
-    reload(gui_main)
-    gui_main.runs('')
+# if __name__ == '__main__':
+#     leg_ma = r'Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301\Leg_Rig_v001.mb'
+#     print(os.path.exists(leg_ma))
+#     cmds.file(leg_ma, o=True, force=True)
+#     # runs(sys.argv[1:])
+#     sys.path.append(r'Y:\tool\ND_Tools\DCC')
+#     import ReverseFootTool.gui.gui_main as gui_main
+#     reload(gui_main)
+#     gui_main.runs('')
 
 '''
 cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC', mo=True)

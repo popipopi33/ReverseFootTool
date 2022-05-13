@@ -34,10 +34,14 @@ def bind_joint_main():
 
     for jnt in cmds.ls("*", type="joint")[:]:
         rot = cmds.xform( jnt, q = 1, worldSpace = 1, rotation = 1 )
-        cmds.setAttr( jnt + '.jointOrient', 0, 0, 0, type = 'double3' )
+        # cmds.setAttr( jnt + '.jointOrient', 0, 0, 0, type = 'double3' )
         cmds.xform( jnt, worldSpace = 1, rotation = rot )
         newRot = cmds.xform( jnt, q = 1, objectSpace = 1, rotation = 1 )
         cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
+        try:
+            cmds.joint(x, edit=True, oj='y')
+        except:
+            pass
         cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
 
 # sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
