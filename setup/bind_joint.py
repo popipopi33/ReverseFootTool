@@ -19,6 +19,9 @@ def bind_joint_main():
                 if pow(_axis, 2) < zero_threshold:
                     _axis = 0.0001
                 _result.append(_axis)
+            cmds.setAttr("{}.translateX".format(jnt), lock=False)
+            cmds.setAttr("{}.translateY".format(jnt), lock=False)
+            cmds.setAttr("{}.translateZ".format(jnt), lock=False)
             cmds.setAttr("{}.translate".format(jnt), _result[0], _result[1], _result[2])
             # Rotate
             x, y, z = cmds.getAttr("{}.rotate".format(jnt))[0]
@@ -27,6 +30,9 @@ def bind_joint_main():
                 if pow(_axis, 2) < zero_threshold:
                     _axis = 0.0001
                 _result.append(_axis)
+            cmds.setAttr("{}.rotateX".format(jnt), lock=False)
+            cmds.setAttr("{}.rotateY".format(jnt), lock=False)
+            cmds.setAttr("{}.rotateZ".format(jnt), lock=False)
             cmds.setAttr("{}.rotate".format(jnt), _result[0], _result[1], _result[2])
     for const in cmds.ls("*Constraint*"):
         cmds.delete(const)
