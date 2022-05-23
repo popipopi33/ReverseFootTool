@@ -210,7 +210,6 @@ def reverse_foot_setup_main():
             continue
         if 'ankle_root' in jnt:
             continue
-        print(jnt)
         # rot = cmds.xform( jnt, q = 1, worldSpace = 1, rotation = 1 )
         # cmds.setAttr( jnt + '.jointOrient', 0, 0, 0, type = 'double3' )
         # cmds.xform( jnt, worldSpace = 1, rotation = rot )

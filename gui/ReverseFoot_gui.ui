@@ -58,7 +58,7 @@
       <item>
        <widget class="QLineEdit" name="tg_ik_text">
         <property name="text">
-         <string>legIk</string>
+         <string>Leg_Rig_v001:legIk</string>
         </property>
        </widget>
       </item>
@@ -66,6 +66,30 @@
        <widget class="QPushButton" name="ik_const_button">
         <property name="text">
          <string>Constraint </string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="import_leg_rig_button">
+        <property name="text">
+         <string>Import Leg_Rig_v001</string>
         </property>
        </widget>
       </item>

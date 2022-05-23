@@ -52,7 +52,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.ik_const_button.clicked.connect(self.ik_const_button_clicked)
 
     def create_locator_button_clicked(self):
-        import create_tg_locator
+        import setup.create_tg_locator as create_tg_locator
         reload(create_tg_locator)
         create_tg_locator.create_tg_locator_main()
         cmds.inViewMessage(assistMessage="Create Locators finished.", pos='midCenter', fade=True, fst=3500, fts=26)    

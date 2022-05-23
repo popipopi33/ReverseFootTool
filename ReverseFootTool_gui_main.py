@@ -43,6 +43,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui = QUiLoader().load(self.ui_path)
         self.setCentralWidget(self.ui)
         self.setGeometry(500, 200, 500, 180)
+        self.set_window_pos()
 
         self.setWindowTitle('%s %s' % (self.WINDOW, __version__))
 
@@ -50,12 +51,23 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.create_joint_button.clicked.connect(self.create_joint_button_clicked)
         self.ui.setup_button.clicked.connect(self.setup_button_clicked)
         self.ui.ik_const_button.clicked.connect(self.ik_const_button_clicked)
+        self.ui.import_leg_rig_button.clicked.connect(self.import_leg_rig_button_clicked)
+
+    def set_window_pos(self):
+        desktop = QtWidgets.qApp.desktop()
+        activeScreen  = desktop.screenNumber(desktop.cursor().pos())
+        desktopCenter = desktop.screenGeometry(activeScreen).center()
+        w_w = desktopCenter.x()
+        w_h = desktopCenter.y()
+        u_w = self.ui.width()
+        u_h = self.ui.height()
+        
+        self.move(w_w-u_w/2, w_h-u_h/2)
 
     def create_locator_button_clicked(self):
-        import setup.create_tg_locator as create_tg_locator
-        reload(create_tg_locator)
-        print(create_tg_locator.__file__)
-        create_tg_locator.create_tg_locator_main()
+        import create_reversefoot_locator
+        reload(create_reversefoot_locator)
+        create_reversefoot_locator.create_reversefoot_locator_main()
         cmds.inViewMessage(assistMessage="Create Locators finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
     def create_joint_button_clicked(self):        
@@ -65,10 +77,10 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         cmds.inViewMessage(assistMessage="Create joint finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
     
     def setup_button_clicked(self):
-        import setup.reverse_foot_setup as reverse_foot_setup
+        import reverse_foot_setup
         reload(reverse_foot_setup)
         reverse_foot_setup.reverse_foot_setup_main()
-        import setup.ctrlshape_cc as ctrlshape_cc
+        import ctrlshape_cc
         reload(ctrlshape_cc)
         ctrlshape_cc.ctrlshape_cc_main()
         cmds.inViewMessage(assistMessage="Setup finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
@@ -83,6 +95,11 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         
         # cmds.parentConstraint('thighLOC', 'secLegPV_ctrloffB', mo=True)
 
+    def import_leg_rig_button_clicked(self):
+        leg_rig_ma = 'Y:\\tool\\ND_Tools\\DCC\\ReverseFootTool\\sample\\0301\\Leg_Rig_v001.mb'
+        leg_rig_ns = leg_rig_ma.split('\\')[-1].rstrip('.ma').rstrip('.mb')
+        cmds.file(leg_rig_ma, i=True, ns=leg_rig_ns)
+
 def runs(*argv):
     app = QApplication.instance()
     if app is None:
@@ -92,8 +109,8 @@ def runs(*argv):
         Debug=True
     else:
         Debug=False
-    print "Debug :{}".format(Debug)
-    print toolpath
+    print("Debug :{}".format(Debug))
+    print(toolpath)
     ui = GUI()
     ui.show()
     # app.exec_()
