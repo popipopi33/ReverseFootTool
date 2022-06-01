@@ -41,7 +41,7 @@ def adjust_ro(tar, obj):
     cmds.xform(obj, ro=ro, ws=True)
 
 
-def reverse_foot_setup_main():
+def reverse_foot_setup_main(adjust_scale):
     node_tree = [
         ['reverseFoot_Setup_GRP', [
             ['reverseFoot_ctrl_GRP', [
@@ -139,6 +139,9 @@ def reverse_foot_setup_main():
     cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
 
     create_node_tree(node_tree[0])
+    import setup.ctrlshape_cc as ctrlshape_cc
+    reload(ctrlshape_cc)
+    ctrlshape_cc.ctrlshape_cc_main(adjust_scale)
         
     cmds.setAttr('ankle_ctrloffB.rotateX', 90)
     # cmds.setAttr('ankle_ctrloffB.rotateX', 90)

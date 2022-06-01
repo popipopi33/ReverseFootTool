@@ -133,6 +133,9 @@ def create_reversefoot_locator_main():
     cmds.setAttr('toe_bindJNT_loc.sy', lock=True)
     cmds.setAttr('toe_bindJNT_loc.sz', lock=True)
 
+    for jnt in cmds.ls(type='joint'):
+        cmds.addAttr(jnt, longName="radiusOrigin", attributeType="double")
+        cmds.setAttr("{}.radiusOrigin".format(jnt), cmds.getAttr("{}.radius".format(jnt)))
 
 # create_locator()
 

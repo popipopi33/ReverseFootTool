@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>516</width>
-    <height>209</height>
+    <height>238</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="adjust_radius_button">
       <property name="text">
        <string>Adjust Radius Size</string>
       </property>

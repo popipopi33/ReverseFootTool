@@ -52,6 +52,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.ui.setup_button.clicked.connect(self.setup_button_clicked)
         self.ui.ik_const_button.clicked.connect(self.ik_const_button_clicked)
         self.ui.import_leg_rig_button.clicked.connect(self.import_leg_rig_button_clicked)
+        self.ui.adjust_radius_button.clicked.connect(self.adjust_radius_button_clicked)
 
     def set_window_pos(self):
         desktop = QtWidgets.qApp.desktop()
@@ -70,7 +71,8 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         create_reversefoot_locator.create_reversefoot_locator_main()
         cmds.inViewMessage(assistMessage="Create Locators finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
-    def create_joint_button_clicked(self):        
+    def create_joint_button_clicked(self):
+        self.adjust_scale = cmds.getAttr("adjustRootAnkle.scaleX")  
         import bind_joint
         reload(bind_joint)
         bind_joint.bind_joint_main()
@@ -79,10 +81,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
     def setup_button_clicked(self):
         import reverse_foot_setup
         reload(reverse_foot_setup)
-        reverse_foot_setup.reverse_foot_setup_main()
-        import ctrlshape_cc
-        reload(ctrlshape_cc)
-        ctrlshape_cc.ctrlshape_cc_main()
+        reverse_foot_setup.reverse_foot_setup_main(self.adjust_scale)
         cmds.inViewMessage(assistMessage="Setup finished.", pos='midCenter', fade=True, fst=3500, fts=26)    
 
     def ik_const_button_clicked(self):
@@ -100,6 +99,15 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         leg_rig_ns = leg_rig_ma.split('\\')[-1].rstrip('.ma').rstrip('.mb')
         cmds.file(leg_rig_ma, i=True, ns=leg_rig_ns)
 
+    def adjust_radius_button_clicked(self):
+        if not cmds.objExists('adjustRootAnkle'):
+            cmds.inViewMessage(assistMessage="Target Joint not found.", pos='midCenter', fade=True, fst=3500, fts=26)   
+            return
+        self.adjust_scale = cmds.getAttr("adjustRootAnkle.scaleX")
+        for jnt in cmds.ls("*", type="joint"[:]):
+            n_rad = cmds.getAttr("{}.radiusOrigin".format(jnt))
+            cmds.setAttr("{}.radius".format(jnt), self.adjust_scale*n_rad)
+            
 def runs(*argv):
     app = QApplication.instance()
     if app is None:
