@@ -139,7 +139,7 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
 
     create_node_tree(node_tree[0])
-    import setup.ctrlshape_cc as ctrlshape_cc
+    import ReverseFootTool.setup.ctrlshape_cc as ctrlshape_cc
     reload(ctrlshape_cc)
     ctrlshape_cc.ctrlshape_cc_main(adjust_scale)
         
@@ -266,6 +266,10 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.orientConstraint('reverseBall_JNT', 'ankle_root_ik_JNT', mo=True)
     cmds.orientConstraint('reverseToe_ctrl', 'reverseToe_JNT', mo=True)
     cmds.orientConstraint('reverseHeel_ctrl', 'reverseHeel_JNT', mo=True)
+
+    for jnt in cmds.ls(type='joint'):
+        if 'ik' in jnt:
+            cmds.setAttr("{}.radius".format(jnt), cmds.getAttr("{}.radius".format(jnt))*0.9)
 
 # sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
 # import setup.create_tg_locator as reverse_foot_setup

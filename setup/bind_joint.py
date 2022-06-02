@@ -51,7 +51,10 @@ def bind_joint_main():
         cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
         cmds.setAttr( jnt + '.overrideEnabled', True)
         cmds.setAttr( jnt + '.ovc', 22)
-        # cmds.setAttr( jnt + '.radius', 2
+    # for jnt in ['ankle_root_ik_JNT', 'ankleTop_ik_JNT', 'heel_sub_ik_JNT', 'ball_ik_JNT', 'toe_ik_JNT']:
+        # rad = cmds.getAttr('{}.radius'.format(jnt))
+        # cmds.setAttr('{}.radius', rad*0.99)
+        # cmds.setAttr( jnt + '.radius', 2)
 # sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
 # import setup.bind_joint as bind_joint
 # reload(bind_joint)

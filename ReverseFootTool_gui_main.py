@@ -106,6 +106,7 @@ class GUI(MayaQWidgetBaseMixin, QMainWindow):
         self.adjust_scale = cmds.getAttr("adjustRootAnkle.scaleX")
         for jnt in cmds.ls("*", type="joint"[:]):
             n_rad = cmds.getAttr("{}.radiusOrigin".format(jnt))
+            print(jnt, n_rad)
             cmds.setAttr("{}.radius".format(jnt), self.adjust_scale*n_rad)
             
 def runs(*argv):

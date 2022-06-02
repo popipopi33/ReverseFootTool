@@ -135,6 +135,9 @@ def create_reversefoot_locator_main():
 
     for jnt in cmds.ls(type='joint'):
         cmds.addAttr(jnt, longName="radiusOrigin", attributeType="double")
+        # if 'ik' in jnt:
+        #     cmds.setAttr("{}.radiusOrigin".format(jnt), cmds.getAttr("{}.radius".format(jnt))*0.9)
+        # else:            
         cmds.setAttr("{}.radiusOrigin".format(jnt), cmds.getAttr("{}.radius".format(jnt)))
 
 # create_locator()
