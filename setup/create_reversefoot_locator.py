@@ -135,20 +135,4 @@ def create_reversefoot_locator_main():
 
     for jnt in cmds.ls(type='joint'):
         cmds.addAttr(jnt, longName="radiusOrigin", attributeType="double")
-        # if 'ik' in jnt:
-        #     cmds.setAttr("{}.radiusOrigin".format(jnt), cmds.getAttr("{}.radius".format(jnt))*0.9)
-        # else:            
         cmds.setAttr("{}.radiusOrigin".format(jnt), cmds.getAttr("{}.radius".format(jnt)))
-
-# create_locator()
-
-# sys.path.append(r'Y:\tool\ND_Tools\DCC\ReverseFootTool')
-# import setup.create_tg_locator as create_tg_locator
-# reload(create_tg_locator)
-# create_tg_locator.main()
-
-# for loc in cmds.ls('*_loc'):
-#     attrs = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz']
-#     for attr in attrs:
-#         if cmds.getAttr('{}.{}'.format(loc, attr), lock=True):
-#             print('cmds.setAttr(\'{}.{}\', lock=True)'.format(loc, attr))

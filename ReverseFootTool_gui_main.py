@@ -1,7 +1,7 @@
 # coding:utf-8
 
 # ------------------------------
-__version__ = "0.1"
+__version__ = "1.0"
 __author__ = "Kei Ueda"
 # ------------------------------
 
@@ -125,21 +125,3 @@ def runs(*argv):
     # app.exec_()
 
     return True
-
-# if __name__ == '__main__':
-#     leg_ma = r'Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301\Leg_Rig_v001.mb'
-#     print(os.path.exists(leg_ma))
-#     cmds.file(leg_ma, o=True, force=True)
-#     # runs(sys.argv[1:])
-#     sys.path.append(r'Y:\tool\ND_Tools\DCC')
-#     import ReverseFootTool.gui.gui_main as gui_main
-#     reload(gui_main)
-#     gui_main.runs('')
-
-'''
-cmds.parentConstraint('kneeA_ctrl', 'ankle_ctrloffC', mo=True)
-cmds.parentConstraint('ankle_root_ik_JNT_to_ankle_ik', 'ankle_ik_JNT', mo=True)
-
-
-Y:\tool\ND_Tools\DCC\ReverseFootTool\sample\0301
-'''
