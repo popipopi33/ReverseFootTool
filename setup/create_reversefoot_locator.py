@@ -98,6 +98,7 @@ def create_reversefoot_locator_main():
     cmds.orientConstraint('ankleTop_bindJNT_loc', 'ankleTop_bindJNT')
 
     cmds.pointConstraint('ankle_bindJNT_loc', 'ankle_bindJNT')
+    cmds.orientConstraint('ankle_bindJNT_loc', 'ankle_bindJNT')
     cmds.orientConstraint('toe_bindJNT_loc', 'toe_bindJNT')
 
     cmds.setAttr('ankleTop_bindJNT_loc.ty', lock=True)

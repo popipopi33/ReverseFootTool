@@ -44,10 +44,10 @@ def bind_joint_main():
         cmds.xform( jnt, worldSpace = 1, rotation = rot )
         newRot = cmds.xform( jnt, q = 1, objectSpace = 1, rotation = 1 )
         cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
-        try:
-            cmds.joint(x, edit=True, oj='y')
-        except:
-            pass
+        # try:
+        #     cmds.joint(x, edit=True, oj='y')
+        # except:
+        #     pass
         cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
         cmds.setAttr( jnt + '.overrideEnabled', True)
         cmds.setAttr( jnt + '.ovc', 22)

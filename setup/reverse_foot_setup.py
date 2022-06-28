@@ -89,7 +89,8 @@ def reverse_foot_setup_main(adjust_scale):
             ['Ik_to_ancleConstrain_LOC', [
                 ['ancleConstrain_LOC_OFF', [
                     ['ancleConstrain_LOC', [
-                        ['ancleConstrain_LOC_parentConstraint1', []],
+                        ['ancleConstrain_LOC_pointConstraint1', []],
+                        ['ancleConstrain_LOC_orientConstraint1', []],
                     ]],
                 ]],
             ]],
@@ -137,7 +138,20 @@ def reverse_foot_setup_main(adjust_scale):
     ]
 
     cmds.rename('ankle_root', 'reverseFoot_Setup_GRP')
-
+    for jnt in cmds.ls("*", type="joint")[:]:
+        if 'ankle_bind' in jnt:
+            continue
+        if 'ankle_root' in jnt:
+            continue
+        # rot = cmds.xform( jnt, q = 1, worldSpace = 1, rotation = 1 )
+        # cmds.setAttr( jnt + '.jointOrient', 0, 0, 0, type = 'double3' )
+        # cmds.xform( jnt, worldSpace = 1, rotation = rot )
+        # newRot = cmds.xform( jnt, q = 1, objectSpace = 1, rotation = 1 )
+        # cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
+        # cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
+        # if 'reverse' in jnt:
+        cmds.makeIdentity(jnt, rotate=True)
+        cmds.joint(jnt, e=True, oj='xyz', sao="yup", zso=True)
     create_node_tree(node_tree[0])
     import ReverseFootTool.setup.ctrlshape_cc as ctrlshape_cc
     reload(ctrlshape_cc)
@@ -147,14 +161,14 @@ def reverse_foot_setup_main(adjust_scale):
     # cmds.setAttr('ankle_ctrloffB.rotateX', 90)
     adjust_tr("ankle_bindJNT", "ancleConstrain_LOC_OFF")
     cmds.setAttr('ancleConstrain_LOC.rotateZ', -90)
-    cmds.setAttr('ankle_bindJNT_OFF.rotateZ', -90)
+    # cmds.setAttr('ankle_bindJNT_OFF.rotateZ', -90)
     # cmds.setAttr('ankle_root_ik_JNT.jointOrientX', -90)
     # cmds.setAttr('ankle_bindJNT.jointOrientX', -90)
     # cmds.setAttr('ankle_root_ik_JNT_to_ankle_ik.rotateZ', -90)
-    cmds.setAttr('reverseHeel_JNT_OFF.rotateY', -90)
-
-    adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
+    # cmds.setAttr('reverseHeel_JNT_OFF.rotateY', -90)
+    # adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
     adjust_tr("ankle_bindJNT", "ankle_ctrloffC")
+    adjust_ro("ankle_bindJNT", "ankle_ctrloffC")
     cmds.xform("ankle_ctrloffC", r=True, ro=[-90, 0, 0], os=True)
     # cmds.xform("ankle_bindJNT", r=True, ro=[-90, 0, -90], os=True)
 
@@ -172,9 +186,9 @@ def reverse_foot_setup_main(adjust_scale):
      
     # cmds.setAttr('ball_ik_JNT.rotateZ', -0.005)
             
-    # adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
+    adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
     adjust_tr("ankle_bindJNT", "reverseFoot_ctrloffB")
-    # cmds.xform("reverseFoot_ctrloffB_L", r=True, ro=[0, 0, 90], os=True)           
+    cmds.xform("reverseFoot_ctrloffB", r=True, ro=[0, 0, 90], os=True)           
     # adjust_ro("heel_sub_bindJNT", "reverseHeel_ctrloffB")
     adjust_tr("heel_sub_bindJNT", "reverseHeel_ctrloffB")
     adjust_tr('heel_sub_bindJNT', 'reverseHeel_JNT_OFF')
@@ -189,9 +203,7 @@ def reverse_foot_setup_main(adjust_scale):
     # adjust_ro('toe_bindJNT', 'toe_ik_JNT')
     # adjust_ro('heel_sub_bindJNT', 'heel_sub_ik_JNT')
     # adjust_ro('toe_bindJNT', 'reverseToe_JNT')
-    adjust_tr('toe_bindJNT', 'reverseToe_JNT')
-    adjust_tr('ball_bindJNT', 'reverseBall_JNT')
-    adjust_tr('ankle_bindJNT', 'reverseAnkle_JNT')
+
 
     adjust_tr("ankle_bindJNT", "ankle_root_ik_JNT_to_ankle_ik")
     adjust_tr('heel_sub_bindJNT', 'heel_sub_ik_JNT')
@@ -202,33 +214,28 @@ def reverse_foot_setup_main(adjust_scale):
 
     adjust_tr("ball_bindJNT", "toe_ctrloffC")   
     adjust_ro("ball_bindJNT", "toe_ctrloffC")        
+    adjust_ro('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
+    cmds.xform("reverseHeel_JNT_OFF", r=True, ro=[0, -90, 0], os=True)           
+    adjust_tr('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
+    adjust_tr('toe_bindJNT', 'reverseToe_JNT')
+    adjust_tr('ball_bindJNT', 'reverseBall_JNT')
+    adjust_tr('ankle_bindJNT', 'reverseAnkle_JNT')
 
         # adjust_ro('ball_bindJNT', 'reverseBall_JNT')
 
     # adjust_ro('ankle_bindJNT', 'reverseAnkle_JNT')
     cmds.reorder('ankleTop_bindJNT', relative=True)
 
-    for jnt in cmds.ls("*", type="joint")[:]:
-        if 'ankle_bind' in jnt:
-            continue
-        if 'ankle_root' in jnt:
-            continue
-        # rot = cmds.xform( jnt, q = 1, worldSpace = 1, rotation = 1 )
-        # cmds.setAttr( jnt + '.jointOrient', 0, 0, 0, type = 'double3' )
-        # cmds.xform( jnt, worldSpace = 1, rotation = rot )
-        # newRot = cmds.xform( jnt, q = 1, objectSpace = 1, rotation = 1 )
-        # cmds.setAttr( jnt + '.jointOrient', newRot[0], newRot[1], newRot[2], type = 'double3' )
-        # cmds.setAttr( jnt + '.rotate', 0, 0, 0, type = 'double3' )
-        # if 'reverse' in jnt:
-        cmds.makeIdentity(jnt, rotate=True)
-        cmds.joint(jnt, e=True, oj='xyz', sao="yup", zso=True)
+
+    adjust_ro('ankle_bindJNT', 'ankle_bindJNT_OFF')
+    cmds.setAttr
     # _ro = cmds.getAttr('reverseToe_JNT.jointOrientX')
     # cmds.setAttr('reverseToe_JNT.jointOrientX', _ro-90)
     # _ro = cmds.getAttr('reverseToe_JNT.jointOrientZ')
     # cmds.setAttr('reverseToe_JNT.jointOrientZ', _ro+180)
 
     cmds.setAttr('ankle_bindJNT.jointOrientX', -90)
-    cmds.setAttr('ankle_bindJNT.rotateX', 90)
+    # cmds.setAttr('ankle_bindJNT.rotateX', 90)
     cmds.setAttr('ankle_root_ik_JNT.jointOrientY', -0.005)
 
     cmds.setAttr('ball_bindJNT.jointOrientX', 0.001)
@@ -236,12 +243,11 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.setAttr('toe_ik_JNT.jointOrientZ', 0)
 
     cmds.setAttr('ball_ik_JNT.jointOrientX', -0.005)
-    cmds.setAttr('reverseHeel_JNT.jointOrientZ', -0.010)
+    # cmds.setAttr('reverseHeel_JNT.jointOrientZ', -0.010)
     # cmds.setAttr('ball_ik_JNT.rotateX', 90)
     # cmds.setAttr('ball_ik_JNT.rotateY', -0.001)
     # cmds.setAttr('ball_ik_JNT.rotateZ', 180)
     # adjust_tr('toe_bindJNT', 'toe_ik_JNT')
-
 
     cmds.connectAttr('ankle_root_ik_JNT.rotateX', 'ankle_ctrloffB.rotateX')
     cmds.connectAttr('ankle_root_ik_JNT.rotateY', 'ankle_ctrloffB.rotateY')
@@ -256,10 +262,10 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.setAttr('ankle_root_ik_JNT.jointOrientX', -90)
 
     # cmds.orientConstraint('reve', 'ankle_root_ik_JNT', mo=True)
-    cmds.pointConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
-    cmds.orientConstraint('toe_ctrl', 'ball_bindJNT', mo=True)
-    cmds.pointConstraint('ankle_ctrl', 'ankle_bindJNT', mo=True)
-    cmds.orientConstraint('ankle_ctrl', 'ankle_bindJNT', mo=True)
+    cmds.pointConstraint('toe_ctrl', 'ball_bindJNT', mo=False)
+    cmds.orientConstraint('toe_ctrl', 'ball_bindJNT', mo=False)
+    cmds.pointConstraint('ankle_ctrl', 'ankle_bindJNT', mo=False)
+    cmds.orientConstraint('ankle_ctrl', 'ankle_bindJNT', mo=False)
     cmds.orientConstraint('reverseToe_JNT', 'ball_ik_JNT', mo=True)
     # cmds.orientConstraint('reverseToe_ctrl', 'ball_ik_JNT', mo=True)
     cmds.orientConstraint('reverseBall_ctrl', 'reverseBall_JNT', mo=True)

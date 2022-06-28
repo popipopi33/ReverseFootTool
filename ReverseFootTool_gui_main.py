@@ -25,6 +25,7 @@ from PySide2.QtWidgets import *
 from maya.app.general.mayaMixin import MayaQWidgetBaseMixin
 
 toolpath = "Y:/tool/ND_Tools/DCC/{}".format(TOOLNAME)
+sys.path.append('Y:/tool/ND_Tools/DCC')
 sys.path.append(toolpath)
 sys.path.append("Y:/tool/ND_Tools/DCC/{}/setup".format(TOOLNAME))
 
