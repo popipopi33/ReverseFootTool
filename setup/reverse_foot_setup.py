@@ -213,7 +213,8 @@ def reverse_foot_setup_main(adjust_scale):
     adjust_tr('ankleTop_bindJNT', 'ankleTop_ik_JNT')
 
     adjust_tr("ball_bindJNT", "toe_ctrloffC")   
-    adjust_ro("ball_bindJNT", "toe_ctrloffC")        
+    adjust_ro("ball_bindJNT", "toe_ctrloffC")    
+    cmds.xform('toe_ctrloffC', r=True, ro=[-90, 0, 0], os=True)    
     adjust_ro('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
     cmds.xform("reverseHeel_JNT_OFF", r=True, ro=[0, -90, 0], os=True)           
     adjust_tr('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
