@@ -158,7 +158,6 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.xform("ankle_ctrloffC", r=True, ro=[-90, 0, 0], os=True)
 
     adjust_ro('ankle_bindJNT', 'ankle_root_ik_JNT_to_ankle_ik')
-    adjust_ro('ankle_bindJNT', 'ankle_root_ik_JNT')
     adjust_ro("ankle_bindJNT", "reverseFoot_ctrloffB")
     adjust_tr("ankle_bindJNT", "reverseFoot_ctrloffB")
     cmds.xform("reverseFoot_ctrloffB", r=True, ro=[0, 0, 90], os=True)
@@ -173,17 +172,29 @@ def reverse_foot_setup_main(adjust_scale):
 
     adjust_tr('ball_bindJNT', 'ball_ik_JNT')
     adjust_tr('toe_bindJNT', 'toe_ik_JNT')
+    cmds.joint('ball_ik_JNT', e=True, oj='xyz', sao="yup", zso=True)
+    cmds.joint('toe_bindJNT', e=True, oj='xyz', sao="yup", zso=True)
+
+    # adjust_ro('ankle_bindJNT', 'ankle_root_ik_JNT')
+
+
     adjust_tr('ankleTop_bindJNT', 'ankleTop_ik_JNT')
 
     adjust_tr("ball_bindJNT", "toe_ctrloffC")
     adjust_ro("ball_bindJNT", "toe_ctrloffC")
-    cmds.xform('toe_ctrloffC', r=True, ro=[-90, 0, 0], os=True)
+    cmds.setAttr('toe_ctrloffC.rotateX', 0)
+    # cmds.xform('toe_ctrloffC', r=True, ro=[-90, 0, 0], os=True)
     adjust_ro('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
     cmds.xform("reverseHeel_JNT_OFF", r=True, ro=[0, -90, 0], os=True)
     adjust_tr('reverseHeel_ctrl', 'reverseHeel_JNT_OFF')
     adjust_tr('toe_bindJNT', 'reverseToe_JNT')
     adjust_tr('ball_bindJNT', 'reverseBall_JNT')
     adjust_tr('ankle_bindJNT', 'reverseAnkle_JNT')
+    # cmds.joint('reverseHeel_JNT', e=True, oj='xyz', sao="yup", zso=True)
+    cmds.joint('reverseBall_JNT', e=True, oj='xyz', sao="zup", zso=True)
+    cmds.joint('reverseAnkle_JNT', e=True, oj='xyz', sao="yup", zso=True)
+    cmds.joint('reverseToe_JNT', e=True, oj='xyz', sao="yup", zso=True)
+    # cmds.setAttr('reverseToe_JNT.jointOrientX', 0)
 
         # adjust_ro('ball_bindJNT', 'reverseBall_JNT')
 
@@ -197,7 +208,7 @@ def reverse_foot_setup_main(adjust_scale):
     cmds.setAttr('ankle_bindJNT.jointOrientX', -90)
     cmds.setAttr('ankle_root_ik_JNT.jointOrientY', -0.005)
 
-    cmds.setAttr('ball_bindJNT.jointOrientX', 0.001)
+    cmds.setAttr('ball_bindJNT.jointOrientX', -0.005)
     cmds.setAttr('toe_ik_JNT.jointOrientX', 0)
     cmds.setAttr('toe_ik_JNT.jointOrientZ', 0)
 
